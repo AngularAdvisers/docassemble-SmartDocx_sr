@@ -2,7 +2,9 @@
 include:
   - init-data_sr.yml
 ---
-features:
+include:
+  - init-data.ymlfeatures:
+---  
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
 ---
 metadata:

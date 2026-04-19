@@ -66,32 +66,6 @@ code: |
   sd_amount = ''
   sd_firm_header = ''
   sd_firm_footer = ''
-
-  # Extra fields consumed by company-founding-act_sr.docx. Declared as empty
-  # strings so docassemble's variable-seeker doesn't halt the interview when
-  # the Matter record doesn't pre-fill them. The user fills them in via the
-  # template downstream.
-  sd_client_id_number = ''
-  sd_company_name = ''
-  sd_company_short_name = ''
-  sd_company_seat_city = ''
-  sd_company_seat_street = ''
-  sd_company_activity_description = ''
-  sd_company_activity_code = ''
-  sd_company_initial_capital = ''
-  sd_director_full_name = ''
-  sd_director_id_number = ''
-
-  # Extra fields consumed by damage-claim-for-vehicle_sr.docx.
-  sd_recipient_full_name = ''
-  sd_recipient_address = ''
-  sd_accident_date = ''
-  sd_accident_location = ''
-  sd_accident_circumstances = ''
-  sd_vehicle_make_model = ''
-  sd_vehicle_plate = ''
-  sd_vehicle_vin = ''
-  sd_policy_number = ''
 ---
 code: |
   def upload_to_s3(doc_path, bucket_name, file_name):
