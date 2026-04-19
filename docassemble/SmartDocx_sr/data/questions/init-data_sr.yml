@@ -2,6 +2,22 @@ mandatory: True
 code: |
   multi_user = True
 ---
+# Inject a tiny JS helper on every screen so per-interview final
+# questions just need a <button onclick="smartDocxSaveAndExit(this)">.
+default screen parts:
+  post: |
+    <script>
+      function smartDocxSaveAndExit(btn) {
+        if (btn) {
+          btn.disabled = true;
+          btn.innerText = 'Чување...';
+        }
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+        }
+      }
+    </script>
+---
 code: |
   set_language('sr')
 

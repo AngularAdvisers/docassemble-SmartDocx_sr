@@ -209,6 +209,19 @@ progress: 100
 section: Завршено
 question: |
   Ovde je vaš dokument.
+subquestion: |
+  You can download the document below, or email a copy to yourself.
+  When you're finished reviewing, click **Save and Exit** to attach the
+  document to the matter and return to Smart-Docx.
+
+  <div class="text-center" style="margin-top: 1.5rem;">
+    <button type="button" class="btn btn-primary btn-lg"
+            onclick="smartDocxSaveAndExit(this)">
+      Save and Exit
+    </button>
+  </div>
+# `smartDocxSaveAndExit` is defined globally in init-data_sr.yml — see
+# the _en legal-services-agreement interview for the full rationale.
 attachment:
   - name: Правни Услуге Договор Документ
     filename: leagal_services_agreenment_document
@@ -216,13 +229,4 @@ attachment:
     variable name: doc_file
     valid formats:
       - docx
-# Notify Smart-Docx that the interview finished. The attachment block
-# above has already materialised `doc_file` in the session, so the
-# Smart-Docx backend can now fetch the assembled DOCX and attach it
-# to the matter via the attachGeneratedDocument mutation.
-script: |
-  <script>
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
-    }
-  </script>
+      - pdf

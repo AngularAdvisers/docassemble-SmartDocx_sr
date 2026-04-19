@@ -112,6 +112,19 @@ progress: 100
 section: Завршено
 question: |
   Ваши документи су спремни. Одштампајте и архивирајте!
+subquestion: |
+  Можете преузети документ испод или послати копију на е-пошту.
+  Када завршите преглед, кликните на **Сачувај и изађи** да приложите
+  документ уз предмет и вратите се у Smart-Docx.
+
+  <div class="text-center" style="margin-top: 1.5rem;">
+    <button type="button" class="btn btn-primary btn-lg"
+            onclick="smartDocxSaveAndExit(this)">
+      Сачувај и изађи
+    </button>
+  </div>
+# `smartDocxSaveAndExit` is defined globally in init-data_sr.yml — see
+# the _en legal-services-agreement interview for the full rationale.
 attachment:
   - name: документ о оставци директора
     filename: resignation_of_director_document
@@ -119,13 +132,4 @@ attachment:
     variable name: doc_file
     valid formats:
       - docx
-# Notify Smart-Docx that the interview finished. The attachment block
-# above has already materialised `doc_file` in the session, so the
-# Smart-Docx backend can now fetch the assembled DOCX and attach it
-# to the matter via the attachGeneratedDocument mutation.
-script: |
-  <script>
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
-    }
-  </script>
+      - pdf
