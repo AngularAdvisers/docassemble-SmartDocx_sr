@@ -56,4 +56,5 @@ setup(name='docassemble.SmartDocx_sr',
       namespace_packages=['docassemble'],
       install_requires=[],
       zip_safe=False,
-      package_data=find_package_data(where='docassemble/Sma
+      package_data=find_package_data(where='docassemble/SmartDocx_sr/', package='docassemble.SmartDocx_sr'),
+     )
