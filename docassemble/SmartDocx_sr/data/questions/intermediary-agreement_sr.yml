@@ -2,9 +2,7 @@
 include:
   - init-data_sr.yml
 ---
-include:
-  - init-data.ymlfeatures:
----  
+features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
 ---
 metadata:
@@ -53,7 +51,7 @@ attachment:
     # filename: benefits_summary
     file: fam_file
     variable name: doc_file
-    docx template file: intermediary-agreeent_sr.docx
+    docx template file: intermediary-agreement_sr.docx
     valid formats:
       - docx
 buttons:

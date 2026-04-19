@@ -46,7 +46,7 @@ code: |
 ---
 mandatory: True
 progress: 100
-section: Завршено
+section: Completed
 question: |
   Ovde je vaš dokument.
 attachment:
