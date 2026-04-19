@@ -66,13 +66,22 @@ code: |
   
   custody_party = 'Bane Nicovic'
 ---
+mandatory: True
 question: Ево вашег документа.
-attachments:
+attachment:
   - name: Ostavka
     filename: ostavka
+    variable name: doc_file
     docx template file: lifetime-support-agreement_sr.docx
     valid formats:
       - docx
-mandatory: True
-buttons:
-  - Сачувај и изађи: Настави
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>
