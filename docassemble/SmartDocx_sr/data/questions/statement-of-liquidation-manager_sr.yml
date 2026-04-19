@@ -1,10 +1,16 @@
+
 ---
+
 include:
   - init-data_sr.yml
+
 ---
+
 features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
+
 ---
+
 metadata:
   title: |
     Corporate - Reject
@@ -12,18 +18,24 @@ metadata:
     Corporate - Reject
   description: |
     No description
+
 ---
+
 objects:
   - client: Individual
   - lawyer: Individual
   - defendant: Individual
   - court: Organisation
+
 ---
+
 mandatory: True
 code: |
   multi_user = True
   set_language('sr')
+
 ---
+
 code: |
   court_name = ''
   client_name_first = ''
@@ -43,7 +55,9 @@ code: |
   defendant.jmbg = '54321'
   
   custody_party = 'Bane Nicovic'
+
 ---
+
 mandatory: True
 question: |
   Компанија информација
@@ -54,13 +68,17 @@ fields:
     datatype: text
   - Матични број: company_number
     datatype: text
+
 ---
+
 mandatory: True
 code: |
   client.name.first = sd_client_first_name
   client.name.last = sd_client_last_name
   custody_party = 'Bane Nicovic'
+
 ---
+
 question: Ovde je vaš dokument.
 attachments:
   - name: Ostavka
@@ -70,17 +88,13 @@ attachments:
     valid formats:
       - docx
 mandatory: True
-buttons:
-  - Сачувај и изађи: Настави
----
-mandatory: True
-code: |
-  doc_path = doc_file.path()
-  bucket_name = 'smart-docx-preview'
-  
-  matterId = matter_id
-  workItemId = work_item_id
-  fileName = filename
-   
-  upload_message = upload_to_s3(doc_path, bucket_name, 'generated/' + fileName)
-  command('leave', url='https://smart-docx.com/assets/redirect.html?matterId=' + matterId)
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>

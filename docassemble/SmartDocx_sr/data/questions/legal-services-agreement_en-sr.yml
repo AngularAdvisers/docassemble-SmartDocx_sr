@@ -1,4 +1,6 @@
+
 ---
+
 metadata:
   title: |
     Legal Services Agreenment Document
@@ -12,15 +14,21 @@ metadata:
     - name: Nemanja Anđelković
       organization: Andjelkovic Law Firm
   revision_date: 2024-04-08
+
 ---
+
 include:
   - init-data_sr.yml
+
 ---
+
 features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
   navigation: True
   progress bar: True  
+
 ---
+
 sections:
   - Име клијента
   - Адреса клијента
@@ -30,18 +38,24 @@ sections:
   - Датум потписивања
   - Потпис
   - Завршено
+
 ---
+
 objects:
   - lsa_client_individual: Individual
   - lsa_client_address: Address
   - lsa_lawyer_individual: Individual
   - lsa_lawyer_address: Address
+
 ---
+
 initial: True
 code: |
   set_language('sr')
   multi_user = True
+
 ---
+
 mandatory: True
 progress: 1
 section: Име клијента
@@ -59,7 +73,9 @@ fields:
   - Презиме: lsa_client_individual.name.suffix
     required: False
     code: name_suffix()
----    
+
+---
+
 mandatory: True
 progress: 15
 section: Адреса клијента
@@ -84,7 +100,9 @@ fields:
     code: |
       countries_list()
     required: False
+
 ---
+
 mandatory: True
 progress: 30
 section: Име адвоката
@@ -102,7 +120,9 @@ fields:
   - Презиме: lsa_lawyer_individual.name.suffix
     required: False
     code: name_suffix()
+
 ---
+
 mandatory: True
 progress: 45
 section: Адреса адвоката
@@ -127,7 +147,9 @@ fields:
     code: |
       countries_list()
     required: False
+
 ---
+
 mandatory: True
 progress: 60
 section: Износ таксе
@@ -143,10 +165,14 @@ under: |
    Клијент Адреса: ${ lsa_client_address }
    Адвокат: ${ lsa_lawyer_individual }
    Адвокат Адреса: ${ lsa_lawyer_address }
+
 ---
+
 code: |
   lsa_fee_amount = "{:.2f}".format(lsa_fee)
+
 ---
+
 mandatory: True
 progress: 75
 section: Датум потписивања
@@ -155,7 +181,9 @@ question: |
 fields:
   - Date: lsa_date_signed
     datatype: date
+
 ---
+
 mandatory: True
 question: Молимо потпишите се испод
 progress: 90
@@ -173,7 +201,9 @@ under: |
   Адвокат Адреса: ${ lsa_lawyer_address }<br>
   Надокнада Износ: ${ lsa_fee_amount } <br>
   Датум Потписан: ${ lsa_date_signed }  
+
 ---
+
 mandatory: True
 progress: 100
 section: Завршено
@@ -186,17 +216,13 @@ attachment:
     variable name: doc_file
     valid formats:
       - docx
-buttons:
-  - Сачувај и изађи: continue
----
-mandatory: True
-code: |
-  doc_path = doc_file.path()
-  bucket_name = 'smart-docx-preview'
-  
-  matterId = matter_id
-  workItemId = work_item_id
-  fileName = filename
-   
-  upload_message = upload_to_s3(doc_path, bucket_name, 'generated/' + fileName)
-  command('leave', url='https://smart-docx.com/assets/redirect.html?matterId=' + matterId)
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>

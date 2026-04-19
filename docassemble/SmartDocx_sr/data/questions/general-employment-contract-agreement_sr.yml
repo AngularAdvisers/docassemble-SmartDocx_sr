@@ -66,13 +66,20 @@ code: |
   
   custody_party = 'Bane Nicovic'
 ---
+mandatory: True
 question: Ево вашег документа.
-attachments:
+subquestion: |
+  Smart-Docx прилаже генерисани документ уз предмет. Бићете преусмерени
+  на преглед за тренутак — није потребна никаква акција.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>
+attachment:
   - name: Ostavka
     filename: ostavka
     docx template file: general-employment-contract-agreement_sr.docx
     valid formats:
       - docx
-mandatory: True
-buttons:
-  - Сачувај и изађи: Настави

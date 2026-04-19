@@ -1,12 +1,20 @@
+
 ---
+
 include:
   - init-data_sr.yml
+
 ---
+
 include:
   - init-data.ymlfeatures:
----  
-  css: docassemble.SmartDocx_sr:data/static/sd_sr.css
+
 ---
+
+  css: docassemble.SmartDocx_sr:data/static/sd_sr.css
+
+---
+
 metadata:
   title: |
     одштетни захтев за возило
@@ -14,17 +22,23 @@ metadata:
     одштетни захтев за возило
   description: |
     одштетни захтев за возило
+
 ---
+
 objects:
   - client: Individual
   - lawyer: Individual
   - defendant: Individual
   - court: Organisation
+
 ---
+
 mandatory: True
 code: |
   multi_user = True
+
 ---
+
 code: |
   court_name = ''
   client_name_first = ''
@@ -45,7 +59,9 @@ code: |
   defendant.jmbg = ''
   
   custody_party = ''
+
 ---
+
 mandatory: True
 question: Ovde je vaš dokument.
 attachment:
@@ -56,13 +72,13 @@ attachment:
     docx template file: damage-claim-for-vehicle_sr.docx
     valid formats:
       - docx
-buttons:
-  - Сачувај и изађи: continue
----
-mandatory: True
-code: |
-  doc_path = doc_file.path()
-  bucket_name = 'smart-docx-preview'
-  
-  upload_message = upload_to_s3(doc_path, bucket_name, 'generated/' + fileName)
-  command('leave', url='https://smart-docx.com/assets/redirect.html?matterId=' + matterId)
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>

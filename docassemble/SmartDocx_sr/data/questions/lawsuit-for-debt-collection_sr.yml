@@ -1,4 +1,6 @@
+
 ---
+
 metadata:
   title: |
     Lawsuit for debt collection
@@ -12,15 +14,21 @@ metadata:
     - name: Nemanja Anđelković
       organization: Andjelkovic Law Firm
   revision_date: 2024-04-12
+
 ---
+
 include:
   - init-data_sr.yml
+
 ---
+
 features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
   navigation: True
   progress bar: True  
+
 ---
+
 sections:
   - Client's Name
   - Client's Address
@@ -32,18 +40,24 @@ sections:
   - Signing Date
   - Signature
   - Completed
+
 ---
+
 objects:
   - client: Individual
   - lawyer: Individual
   - defendant: Individual
   - court: Organisation
+
 ---
+
 initial: True
 code: |
   set_language('sr')
   multi_user = True
+
 ---
+
 mandatory: True
 progress: 100
 section: Завршено
@@ -56,17 +70,13 @@ attachment:
     variable name: doc_file
     valid formats:
       - docx
-buttons:
-  - Сачувај и изађи: continue
----
-mandatory: True
-code: |
-  doc_path = doc_file.path()
-  bucket_name = 'smart-docx-preview'
-  
-  matterId = matter_id
-  workItemId = work_item_id
-  fileName = filename
-   
-  upload_message = upload_to_s3(doc_path, bucket_name, 'generated/' + fileName)
-  command('leave', url='https://smart-docx.com/assets/redirect.html?matterId=' + matterId)
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>

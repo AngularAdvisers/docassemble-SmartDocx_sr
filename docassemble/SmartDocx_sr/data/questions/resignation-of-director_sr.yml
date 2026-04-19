@@ -11,15 +11,21 @@ metadata:
     - name: Nemanja Anđelković
       organization: Andjelkovic Law Firm
   revision_date: 2024-04-11
+
 ---
+
 include:
   - init-data_sr.yml
+
 ---
+
 features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
   navigation: True
   progress bar: True  
+
 ---
+
 sections:
   - Име клијента
   - Информације о компанији
@@ -27,14 +33,20 @@ sections:
   - Датум потписивања
   - Потпис
   - Завршено
+
 ---
+
 objects:
   - rod_client_individual: Individual
+
 ---
+
 initial: True
 code: |
   set_language('sr')
+
 ---
+
 mandatory: True
 progress: 1
 section: Име клијента
@@ -48,7 +60,9 @@ fields:
   - Суфикс: rod_client_individual.name.suffix
     required: False
     code: name_suffix()
+
 ---
+
 mandatory: True
 progress: 30
 section: Информације о компанији
@@ -56,7 +70,9 @@ question: Које су информације о компанији
 fields:
   - Име компаније: rod_company_name
   - Матични број компаније: rod_company_id
+
 ---
+
 mandatory: True
 progress: 45
 section: Информације о одбијању
@@ -64,7 +80,9 @@ question: Шта је разлог одбијања?
 fields:
   - Разлог: rod_rejection_reason
   - Прималац: rod_rejection_recipient
----  
+
+---
+
 mandatory: True
 progress: 60
 section: Датум потписивања
@@ -73,7 +91,9 @@ question: |
 fields:
   - Датум: rod_date_signed
     datatype: date
+
 ---
+
 mandatory: True
 progress: 80
 section: Потпис
@@ -84,7 +104,9 @@ subquestion: |
 signature: rod_client_signature
 under: |
   ${ rod_client_individual }
+
 ---
+
 mandatory: True
 progress: 100
 section: Завршено
@@ -97,17 +119,13 @@ attachment:
     variable name: doc_file
     valid formats:
       - docx
-buttons:
-  - Сачувај и изађи: continue
----
-mandatory: True
-code: |
-  doc_path = doc_file.path()
-  bucket_name = 'smart-docx-preview'
-  
-  matterId = matter_id
-  workItemId = work_item_id
-  fileName = filename
-   
-  upload_message = upload_to_s3(doc_path, bucket_name, 'generated/' + fileName)
-  command('leave', url='https://smart-docx.com/assets/redirect.html?matterId=' + matterId)   
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>

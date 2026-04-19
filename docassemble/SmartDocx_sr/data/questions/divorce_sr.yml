@@ -1,10 +1,16 @@
+
 ---
+
 include:
   - init-data_sr.yml
+
 ---
+
 features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
+
 ---
+
 metadata:
   title: |
     Complex Template
@@ -12,21 +18,29 @@ metadata:
     Complex Template - Test
   description: |
     No description
+
 ---
+
 objects:
   - client: Individual
   - lawyer: Individual
   - defendant: Individual
   - court: Organisation
+
 ---
+
 initial: True
 code: |
   set_language('sr')
+
 ---
+
 mandatory: True
 code: |
   multi_user = True
+
 ---
+
 code: |
   court_name = ''
   client_name_first = ''
@@ -47,7 +61,9 @@ code: |
   defendant.jmbg = '54321'
   
   custody_party = 'Bane Nicovic'
+
 ---
+
 mandatory: True
 question: |
   У ком граду се води ваш случај?
@@ -56,7 +72,9 @@ fields:
     choices:
       - Београд
       - Нови Сад
+
 ---
+
 mandatory: True
 question: |
   На ком суду се води ваш случај?
@@ -68,7 +86,9 @@ fields:
       - Трећи основни суд у Београду
       - Основни суд у Новом Саду
       - Основни суд у Бачкој Паланци
+
 ---
+
 mandatory: True
 question: |
   ${ court }
@@ -170,7 +190,9 @@ fields:
     show if:
       variable: opt_merom
       is: True
+
 ---
+
 mandatory: True
 code: |
   client.name.first = client_name_first
@@ -192,7 +214,9 @@ code: |
   fileName = filename
   
   custody_party = ''
+
 ---
+
 mandatory: True
 question: Ovde je vaš dokument.
 attachment:
@@ -202,17 +226,13 @@ attachment:
     docx template file: divorce_sr.docx
     valid formats:
       - docx
-buttons:
-  - Сачувај и изађи: continue
----
-mandatory: True
-code: |
-  doc_path = doc_file.path()
-  bucket_name = 'smart-docx-preview'
-  
-  matterId = matter_id
-  workItemId = work_item_id
-  fileName = filename
-   
-  upload_message = upload_to_s3(doc_path, bucket_name, 'generated/' + fileName)
-  command('leave', url='https://smart-docx.com/assets/redirect.html?matterId=' + matterId)
+# Notify Smart-Docx that the interview finished. The attachment block
+# above has already materialised `doc_file` in the session, so the
+# Smart-Docx backend can now fetch the assembled DOCX and attach it
+# to the matter via the attachGeneratedDocument mutation.
+script: |
+  <script>
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+    }
+  </script>
