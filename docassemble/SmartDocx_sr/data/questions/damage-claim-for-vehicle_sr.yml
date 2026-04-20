@@ -6,11 +6,7 @@ include:
 
 ---
 
-include:
-  - init-data.ymlfeatures:
-
----
-
+features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
 
 ---
@@ -68,6 +64,8 @@ subquestion: |
   Можете преузети документ испод или послати копију на е-пошту.
   Када завршите преглед, кликните на **Сачувај и изађи** да приложите
   документ уз предмет и вратите се у Smart-Docx.
+
+  ${ doc_file }
 
   <div class="text-center" style="margin-top: 1.5rem;">
     <button type="button" class="btn btn-primary btn-lg"

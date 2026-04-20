@@ -214,6 +214,8 @@ subquestion: |
   When you're finished reviewing, click **Save and Exit** to attach the
   document to the matter and return to Smart-Docx.
 
+  ${ doc_file }
+
   <div class="text-center" style="margin-top: 1.5rem;">
     <button type="button" class="btn btn-primary btn-lg"
             onclick="smartDocxSaveAndExit(this)">

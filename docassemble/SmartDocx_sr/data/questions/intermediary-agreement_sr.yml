@@ -6,11 +6,7 @@ include:
 
 ---
 
-include:
-  - init-data.ymlfeatures:
-
----
-
+features:
   css: docassemble.SmartDocx_sr:data/static/sd_sr.css
 
 ---
@@ -69,6 +65,8 @@ subquestion: |
   Када завршите преглед, кликните на **Сачувај и изађи** да приложите
   документ уз предмет и вратите се у Smart-Docx.
 
+  ${ doc_file }
+
   <div class="text-center" style="margin-top: 1.5rem;">
     <button type="button" class="btn btn-primary btn-lg"
             onclick="smartDocxSaveAndExit(this)">
@@ -82,7 +80,7 @@ attachment:
     # filename: benefits_summary
     file: fam_file
     variable name: doc_file
-    docx template file: intermediary-agreeent_sr.docx
+    docx template file: intermediary-agreement_sr.docx
     valid formats:
       - docx
       - pdf
