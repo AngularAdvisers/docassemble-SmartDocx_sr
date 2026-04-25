@@ -13,7 +13,15 @@ default screen parts:
           btn.innerText = 'Чување...';
         }
         if (window.parent && window.parent !== window) {
-          window.parent.postMessage({ type: 'docassemble:complete' }, '*');
+          // Read the current session id from the iframe's URL — see
+          // init-data_en.yml for the full rationale. DA can mint a new
+          // session mid-flight, and the parent must use *that* id for the
+          // attach mutation, not whatever it cached at iframe-open time.
+          var sessionId = new URLSearchParams(window.location.search).get('session') || '';
+          window.parent.postMessage(
+            { type: 'docassemble:complete', sessionId: sessionId },
+            '*'
+          );
         }
       }
     </script>
