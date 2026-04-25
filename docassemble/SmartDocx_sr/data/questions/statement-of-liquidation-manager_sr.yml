@@ -87,32 +87,54 @@ subquestion: |
   документ уз предмет и вратите се у Smart-Docx.
 
   <!--
-    Iframe instead of bare ${ doc_file } - DA renders that as icon
-    links only. Iframe loads the assembled PDF in the browser native
-    viewer so users get pagination, zoom, search.
-  -->
-  <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 6px;
-              overflow: hidden; margin: 1rem 0; height: 70vh;
-              background: #fafafa;">
-    <iframe
-      src="${ doc_file.pdf.url_for() }#toolbar=1&navpanes=0&view=FitH"
-      width="100%"
-      height="100%"
-      style="border: 0;"
-      title="Преглед документа">
-    </iframe>
-  </div>
+    Download card sits ABOVE the inline preview and visually FLOWS into
+    it: same border + corner radius on the top half, no border-bottom on
+    the download header so the join reads as a single panel. DOCX + PDF
+    links are styled as pill buttons (no email block — kept off the
+    surface to keep the action focus on download / read).
 
-  <p style="margin-top: 1rem;">
-    <a href="${ doc_file.docx.url_for(attachment=True) }">
-      <i class="fas fa-file-word"></i> DOCX
-    </a>
-  </p>
-  <p>
-    <a href="${ doc_file.pdf.url_for(attachment=True) }">
-      <i class="fas fa-file-pdf"></i> PDF
-    </a>
-  </p>
+    The preview iframe below it uses DA's PDF URL (browser's native PDF
+    viewer = page nav, zoom, search). `.show()` only renders the first
+    page as a thumbnail image, which is useless for multi-page documents.
+  -->
+  <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 8px;
+              overflow: hidden; margin: 1rem 0;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+    <div style="padding: 0.75rem 1rem; background: #f6f7fb;
+                border-bottom: 1px solid rgba(0,0,0,0.08);">
+      <div style="font-weight: 600; font-size: 0.85rem;
+                  letter-spacing: 0.04em; text-transform: uppercase;
+                  color: rgba(15,23,42,0.6); margin-bottom: 0.5rem;">
+        Преузми
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        <a href="${ doc_file.docx.url_for(attachment=True) }"
+           style="display: inline-flex; align-items: center; gap: 0.4rem;
+                  padding: 0.4rem 0.85rem; border-radius: 9999px;
+                  background: #2b6cb0; color: #fff; text-decoration: none;
+                  font-size: 0.875rem; font-weight: 500;">
+          <i class="fas fa-file-word"></i> DOCX
+        </a>
+        <a href="${ doc_file.pdf.url_for(attachment=True) }"
+           style="display: inline-flex; align-items: center; gap: 0.4rem;
+                  padding: 0.4rem 0.85rem; border-radius: 9999px;
+                  background: #c53030; color: #fff; text-decoration: none;
+                  font-size: 0.875rem; font-weight: 500;">
+          <i class="fas fa-file-pdf"></i> PDF
+        </a>
+      </div>
+    </div>
+
+    <div style="height: 70vh; background: #fafafa;">
+      <iframe
+        src="${ doc_file.pdf.url_for() }#toolbar=1&navpanes=0&view=FitH"
+        width="100%"
+        height="100%"
+        style="border: 0; display: block;"
+        title="Преглед документа">
+      </iframe>
+    </div>
+  </div>
 
   <div class="text-center" style="margin-top: 1.5rem;">
     <button type="button" class="btn btn-primary btn-lg"
