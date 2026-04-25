@@ -68,7 +68,33 @@ subquestion: |
   Када завршите преглед, кликните на **Сачувај и изађи** да приложите
   документ уз предмет и вратите се у Smart-Docx.
 
-  ${ doc_file }
+  <!--
+    Iframe instead of bare ${ doc_file } - DA renders that as icon
+    links only. Iframe loads the assembled PDF in the browser native
+    viewer so users get pagination, zoom, search.
+  -->
+  <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 6px;
+              overflow: hidden; margin: 1rem 0; height: 70vh;
+              background: #fafafa;">
+    <iframe
+      src="${ doc_file.pdf.url_for() }#toolbar=1&navpanes=0&view=FitH"
+      width="100%"
+      height="100%"
+      style="border: 0;"
+      title="Преглед документа">
+    </iframe>
+  </div>
+
+  <p style="margin-top: 1rem;">
+    <a href="${ doc_file.docx.url_for(attachment=True) }">
+      <i class="fas fa-file-word"></i> DOCX
+    </a>
+  </p>
+  <p>
+    <a href="${ doc_file.pdf.url_for(attachment=True) }">
+      <i class="fas fa-file-pdf"></i> PDF
+    </a>
+  </p>
 
   <div class="text-center" style="margin-top: 1.5rem;">
     <button type="button" class="btn btn-primary btn-lg"
