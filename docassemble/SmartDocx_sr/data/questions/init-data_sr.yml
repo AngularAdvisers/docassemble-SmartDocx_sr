@@ -26,6 +26,7 @@ default screen parts:
       }
     </script>
 ---
+mandatory: True
 code: |
   set_language('sr')
 
