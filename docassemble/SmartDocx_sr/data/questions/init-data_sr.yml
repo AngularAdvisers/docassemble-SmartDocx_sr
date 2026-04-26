@@ -90,6 +90,26 @@ code: |
   sd_amount = ''
   sd_firm_header = ''
   sd_firm_footer = ''
+
+  # Variables consumed by company-founding-act_sr.docx. Initialised
+  # empty here so Docassemble can resolve them when the template is
+  # assembled — without these, missing-variable lookup loops back to
+  # `doc_file` and Docassemble raises:
+  #   DASourceError: Infinite loop: doc_file already looked for
+  # These ought to be gathered via real `question:` blocks in
+  # company-founding-act_sr.yml; until that interview is filled in,
+  # leaving them as empty strings produces a blank-field document
+  # rather than crashing the whole flow.
+  sd_client_id_number = ''
+  sd_company_name = ''
+  sd_company_short_name = ''
+  sd_company_seat_city = ''
+  sd_company_seat_street = ''
+  sd_company_activity_code = ''
+  sd_company_activity_description = ''
+  sd_company_initial_capital = ''
+  sd_director_full_name = ''
+  sd_director_id_number = ''
 ---
 code: |
   def upload_to_volume(doc_path, bucket_name, file_name):
