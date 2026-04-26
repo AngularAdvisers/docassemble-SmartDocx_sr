@@ -50,17 +50,38 @@ code: |
   client.name.last = 'Best'
   client.address = '123 Main Street, Cacak'
   client.jmbg = '12345'
-  
+
   lawyer.name.first = 'Bill'
   lawyer.name.last = 'Best'
   lawyer.address = '123 Secondary Street, Belgrade'
-  
+
   defendant.name.first = 'Eva'
   defendant.name.last = 'Smith'
   defendant.address = '5th Ave, NY'
   defendant.jmbg = '54321'
-  
+
   custody_party = 'Bane Nicovic'
+
+  # Intermediate variables consumed by the mandatory `client.address = client_address`
+  # / `lawyer.address = lawyer_address` / etc. block lower in this file.
+  # Smart-Docx passes these values as URL parameters when launching the
+  # interview; when the interview is opened standalone (testing, dev) the
+  # parameters are absent. Initialising to empty strings keeps the
+  # mandatory copy-block from raising "variable not defined" and the
+  # downstream DOCX template from blowing up when it Jinja-substitutes
+  # the corresponding object attributes.
+  client_address = ''
+  client_jmbg = ''
+  lawyer_name_first = ''
+  lawyer_name_last = ''
+  lawyer_address = ''
+  defendant_name_first = ''
+  defendant_name_last = ''
+  defendant_address = ''
+  defendant_jmbg = ''
+  matter_id = ''
+  work_item_id = ''
+  filename = ''
 
 ---
 
