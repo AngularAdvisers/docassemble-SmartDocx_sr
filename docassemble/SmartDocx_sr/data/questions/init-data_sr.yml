@@ -111,6 +111,28 @@ code: |
   sd_company_initial_capital = ''
   sd_director_full_name = ''
   sd_director_id_number = ''
+
+  # damage-claim-for-vehicle_sr.docx variables.
+  sd_accident_circumstances = ''
+  sd_accident_date = ''
+  sd_accident_location = ''
+  sd_policy_number = ''
+  sd_recipient_address = ''
+  sd_recipient_full_name = ''
+  sd_vehicle_make_model = ''
+  sd_vehicle_plate = ''
+  sd_vehicle_vin = ''
+
+  # lawsuit-for-debt-collection_sr.docx variables.
+  sd_claimant_ID = ''
+  sd_defendant_ID = ''
+  sd_date_of_debt = ''
+  sd_debt_duedate = ''
+  sd_debt_interestdate = ''
+  sd_evidence_material = ''
+  sd_location = ''
+  sd_proceedings_expenses = ''
+  lawyer_signature = ''
 ---
 code: |
   def upload_to_volume(doc_path, bucket_name, file_name):

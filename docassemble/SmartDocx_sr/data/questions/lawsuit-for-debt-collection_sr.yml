@@ -59,6 +59,54 @@ code: |
 ---
 
 mandatory: True
+progress: 50
+question: |
+  Подаци о тужби за наплату дуга
+subquestion: |
+  Унесите податке о суду, странкама, дугу и доказима. Сва поља су
+  опциона — оставите празна она која ћете попунити касније у документу.
+fields:
+  - Назив суда: sd_court_name
+    required: False
+  - Тужилац — име и презиме: sd_claimant_full_name
+    required: False
+  - Тужилац — адреса: sd_claimant_adress
+    required: False
+  - Тужилац — град: sd_claimant_city
+    required: False
+  - Тужилац — ЈМБГ: sd_claimant_ID
+    required: False
+  - Тужени — име и презиме: sd_defendant_full_name
+    required: False
+  - Тужени — адреса: sd_defendant_adress
+    required: False
+  - Тужени — град: sd_defendant_city
+    required: False
+  - Тужени — ЈМБГ: sd_defendant_ID
+    required: False
+  - Адвокат — име и презиме: sd_lawyer_full_name
+    required: False
+  - Адвокат — адреса: sd_lawyer_adress
+    required: False
+  - Вредност спора (RSD): sd_dispute_value
+    required: False
+  - Датум настанка дуга: sd_date_of_debt
+    required: False
+  - Датум доспелости дуга: sd_debt_duedate
+    required: False
+  - Почетак обрачуна камате: sd_debt_interestdate
+    required: False
+  - Доказни материјал: sd_evidence_material
+    required: False
+    input type: area
+  - Трошкови поступка (RSD): sd_proceedings_expenses
+    required: False
+  - Место и датум потписивања: sd_location
+    required: False
+
+---
+
+mandatory: True
 progress: 100
 section: Завршено
 question: |

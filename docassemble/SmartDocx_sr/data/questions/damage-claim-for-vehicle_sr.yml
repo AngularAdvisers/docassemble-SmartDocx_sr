@@ -59,6 +59,37 @@ code: |
 ---
 
 mandatory: True
+question: |
+  Подаци о возилу и штети
+subquestion: |
+  Унесите податке о возилу, удесу и оштеценом. Сва поља су опциона —
+  оставите празна она која ћете попунити касније у документу.
+fields:
+  - Регистарски број возила: sd_vehicle_plate
+    required: False
+  - Маркa и модел возила: sd_vehicle_make_model
+    required: False
+  - VIN број шасије: sd_vehicle_vin
+    required: False
+  - Број полисе осигурања: sd_policy_number
+    required: False
+  - Датум удеса: sd_accident_date
+    required: False
+  - Локација удеса: sd_accident_location
+    required: False
+  - Околности удеса: sd_accident_circumstances
+    required: False
+    input type: area
+  - Износ штете (RSD): sd_damage_amount
+    required: False
+  - Прималац штете — име и презиме: sd_recipient_full_name
+    required: False
+  - Прималац штете — адреса: sd_recipient_address
+    required: False
+
+---
+
+mandatory: True
 question: Ovde je vaš dokument.
 subquestion: |
   Можете преузети документ испод или послати копију на е-пошту.
