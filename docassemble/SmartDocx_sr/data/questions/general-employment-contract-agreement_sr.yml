@@ -131,6 +131,7 @@ attachment:
   - name: Ostavka
     filename: ostavka
     docx template file: general-employment-contract-agreement_sr.docx
+    variable name: doc_file
     valid formats:
       - docx
       - pdf
