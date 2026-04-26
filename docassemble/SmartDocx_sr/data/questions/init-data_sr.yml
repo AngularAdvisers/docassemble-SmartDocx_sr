@@ -133,6 +133,35 @@ code: |
   sd_location = ''
   sd_proceedings_expenses = ''
   lawyer_signature = ''
+
+  # general-employment-contract-agreement_sr.docx variables. The
+  # interview's `fields:` block currently gathers a different set of
+  # variable names (case_date / company_name / rejection_reason / …) than
+  # the DOCX template references (sd_employer_full_name / sd_employee_*
+  # / sd_salaryamount / …). Until the question-to-template mapping is
+  # reconciled by the legal team, initialising the template's variables
+  # here keeps document assembly from crashing with
+  #   UndefinedError exception during document assembly:
+  #     'sd_employer_full_name' is undefined
+  # and produces a document with blank values where the user input is
+  # missing — matching the existing pattern for other unanswered fields.
+  sd_employer_full_name = ''
+  sd_employer_adress = ''
+  sd_employer_id = ''
+  sd_employee_full_name = ''
+  sd_employee_address = ''
+  sd_employee_id = ''
+  sd_employee_workplace = ''
+  sd_startdate = ''
+  sd_enddate = ''
+  sd_salaryamount = ''
+  sd_lunchbonus = ''
+  sd_vacationbonus = ''
+  sd_currency = ''
+
+  # Compat aliases for templates that misspell address as `adress`.
+  sd_claimant_adress = ''
+  sd_defendant_adress = ''
 ---
 code: |
   def upload_to_volume(doc_path, bucket_name, file_name):
