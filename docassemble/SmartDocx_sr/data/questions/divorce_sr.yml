@@ -313,7 +313,7 @@ subquestion: |
 
 attachment:
   - name: Развод
-    file: divorce_file
+    filename: divorce
     variable name: doc_file
     docx template file: divorce_sr.docx
     valid formats:
