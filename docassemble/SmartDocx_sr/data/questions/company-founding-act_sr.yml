@@ -120,7 +120,6 @@ subquestion: |
 attachment:
   - name: Summary of Benefits
     # filename: benefits_summary
-    file: fam_file
     variable name: doc_file
     docx template file: company-founding-act_sr.docx
     valid formats:
