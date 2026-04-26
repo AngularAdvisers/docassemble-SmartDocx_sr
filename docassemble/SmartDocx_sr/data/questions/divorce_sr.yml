@@ -41,6 +41,18 @@ code: |
 
 ---
 
+# `mandatory: True` is REQUIRED on this block. Docassemble's variable
+# resolver only consults a non-mandatory `code:` block when searching for
+# a specific variable that block defines — and its scanner can miss the
+# atom assignments below the attribute assignments (`client.address = …`)
+# in this same block, leading to runtime errors like
+#   "There was a reference to a variable 'client_address' that could not
+#    be looked up …"
+# Marking the block mandatory forces Docassemble to evaluate it at the
+# start of every interview run, so every fallback (`client_address = ''`
+# etc.) is always defined before the mandatory copy-block below
+# (`client.address = client_address`) executes.
+mandatory: True
 code: |
   court_name = ''
   client_name_first = ''
@@ -297,6 +309,8 @@ subquestion: |
   </div>
 # `smartDocxSaveAndExit` is defined globally in init-data_sr.yml — see
 # the _en legal-services-agreement interview for the full rationale.
+---
+
 attachment:
   - name: Развод
     file: divorce_file

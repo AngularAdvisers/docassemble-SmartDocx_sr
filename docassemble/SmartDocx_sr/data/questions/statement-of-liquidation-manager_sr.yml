@@ -138,6 +138,7 @@ subquestion: |
   </div>
 # `smartDocxSaveAndExit` is defined globally in init-data_sr.yml — see
 # the _en legal-services-agreement interview for the full rationale.
+---
 attachments:
   - name: Ostavka
     filename: ostavka
