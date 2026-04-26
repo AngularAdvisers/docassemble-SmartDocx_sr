@@ -44,7 +44,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.SmartDocx_sr',
-      version='1.0.78',
+      version='1.0.79',
       description=('A docassemble extension.'),
       long_description='SmartDocx sr',
       long_description_content_type='text/markdown',

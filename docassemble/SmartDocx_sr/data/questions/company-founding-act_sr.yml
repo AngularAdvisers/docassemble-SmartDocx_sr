@@ -59,6 +59,36 @@ code: |
 ---
 
 mandatory: True
+question: |
+  Подаци о предузећу
+subquestion: |
+  Унесите податке о предузећу. Сва поља су опциона — оставите празна
+  она која ћете попунити касније у документу.
+fields:
+  - Назив предузећа: sd_company_name
+    required: False
+  - Скраћени назив: sd_company_short_name
+    required: False
+  - Седиште — град: sd_company_seat_city
+    required: False
+  - Седиште — улица и број: sd_company_seat_street
+    required: False
+  - Шифра делатности: sd_company_activity_code
+    required: False
+  - Опис делатности: sd_company_activity_description
+    required: False
+  - Почетни капитал (RSD): sd_company_initial_capital
+    required: False
+  - Име и презиме директора: sd_director_full_name
+    required: False
+  - ЈМБГ директора: sd_director_id_number
+    required: False
+  - ЈМБГ оснивача: sd_client_id_number
+    required: False
+
+---
+
+mandatory: True
 question: Ovde je vaš dokument.
 subquestion: |
   Можете преузети документ испод или послати копију на е-пошту.
